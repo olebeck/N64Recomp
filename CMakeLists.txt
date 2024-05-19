@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+if(NOT DEFINED VITA)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
 # set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # Rabbitizer
@@ -88,3 +90,16 @@ target_link_libraries(RSPRecomp fmt rabbitizer tomlplusplus::tomlplusplus)
 
 target_sources(RSPRecomp PRIVATE
     ${CMAKE_SOURCE_DIR}/RSPRecomp/src/rsp_recomp.cpp)
+
+
+if(DEFINED VITA)
+    include("$ENV{VITASDK}/share/vita.cmake" REQUIRED)
+
+    add_definitions(-DVITA)
+
+    target_sources(fmt PRIVATE
+        ${CMAKE_SOURCE_DIR}/src/vita/flock.cpp
+    )
+
+    vita_create_self(N64Recomp.self N64Recomp)
+endif()

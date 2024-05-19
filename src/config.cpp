@@ -1,4 +1,8 @@
+#ifdef VITA
+#include "vita/source_location.h"
+#else
 #include <source_location>
+#endif
 
 #include <toml++/toml.hpp>
 #include "fmt/format.h"

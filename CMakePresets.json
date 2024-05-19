@@ -1,0 +1,27 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "base",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_COLOR_DIAGNOSTICS": true
+            }
+        },
+        {
+            "name": "debug",
+            "inherits": ["base"],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "vita",
+            "inherits": ["debug"],
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VITASDK}/share/vita.toolchain.cmake",
+                "VITA": true
+            }
+        }
+    ]
+}
